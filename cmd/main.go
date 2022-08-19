@@ -27,7 +27,7 @@ func main() {
 
 	logger.Notice("App Run ...")
 
-	go controller.NewController(&ctx)
+	go controller.NewController(ctx)
 
 	<-GracefulShutdown()
 	_, forceCancel := context.WithTimeout(ctx, shutDownDuration)

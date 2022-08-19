@@ -13,13 +13,13 @@ type Controller struct {
 	Iris *iris.Application
 }
 
-func NewController(ctx *context.Context) {
+func NewController(ctx context.Context) {
 	server := &Controller{
 		Iris: iris.Default(),
 	}
 
 	iris.RegisterOnInterrupt(func() {
-		err := server.Iris.Shutdown(*ctx)
+		err := server.Iris.Shutdown(ctx)
 		if err != nil {
 			logger.Error(err)
 		}
