@@ -27,8 +27,8 @@ func NewRouter(iris *iris.Application, services *services.Services) *iris.Applic
 	service.Handle("GET", "/user/{id:int64}", serv.GetUserByID)
 
 	// feed
-	service.Handle("GET", "/feeds", serv.GetAllFeeds)
-	service.Handle("GET", "/feed/{id:int64}", serv.GetFeedByID)
+	v1.Handle("GET", "/feeds", serv.GetAllFeeds)
+	v1.Handle("GET", "/feed/{id:int64}", serv.GetFeedByID)
 
 	return iris
 }
