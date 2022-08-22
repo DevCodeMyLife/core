@@ -21,3 +21,10 @@ func (r *Repository) GetAllUsers() []models.User {
 
 	return u
 }
+
+func (r *Repository) GetUser(id int64) models.User {
+	var u models.User
+	r.db.Table("users").Where("id = ?", id).Find(&u)
+
+	return u
+}

@@ -15,11 +15,15 @@ func NewRouter(iris *iris.Application, services *services.Services) *iris.Applic
 		Service: services,
 	}
 
-	// system
-	iris.Handle("GET", "/health_check", serv.HealthCheck)
+	v1 := iris.Party("/v1")
 
-	// user
-	iris.Handle("POST", "/users", serv.GetAllUsers) // get all users
+	// System
+	system := v1.Party("/system")
+	system.Handle("GET", "/health_check", serv.HealthCheck)
+
+	// User
+	v1.Handle("GET", "/users", serv.GetAllUsers)
+	v1.Handle("GET", "/user/{id:int64}", serv.GetUser)
 
 	return iris
 }

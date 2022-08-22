@@ -38,3 +38,19 @@ func (s *Service) GetAllUsers() []models.UserService {
 
 	return usersService
 }
+
+func (s *Service) GetUser(id int64) models.UserService {
+	var userService models.UserService
+	v := s.userRepository.GetUser(id)
+
+	userService.ID = v.ID
+	userService.CreatedAt = v.CreatedAt
+	userService.Login = v.Login
+	userService.FirstName = v.FirstName
+	userService.LastName = v.LastName
+	userService.MiddleName = v.MiddleName
+	userService.MainImage = v.MainImage
+	userService.SmallImage = v.SmallImage
+
+	return userService
+}
