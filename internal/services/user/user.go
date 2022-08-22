@@ -2,19 +2,16 @@ package user
 
 import (
 	"core/internal/models"
-	"core/internal/repositories/auth"
 	"core/internal/repositories/user"
 )
 
 type Service struct {
 	userRepository *user.Repository
-	authRepository *auth.Repository
 }
 
-func NewUserService(userRepository *user.Repository, authRepository *auth.Repository) *Service {
+func NewUserService(userRepository *user.Repository) *Service {
 	return &Service{
 		userRepository: userRepository,
-		authRepository: authRepository,
 	}
 }
 

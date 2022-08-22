@@ -16,14 +16,15 @@ func NewRouter(iris *iris.Application, services *services.Services) *iris.Applic
 	}
 
 	v1 := iris.Party("/v1")
+	system := v1.Party("/system")
+	service := v1.Party("/service", serv.AuthMiddleware)
 
 	// System
-	system := v1.Party("/system")
 	system.Handle("GET", "/health_check", serv.HealthCheck)
 
 	// User
-	v1.Handle("GET", "/users", serv.GetAllUsers)
-	v1.Handle("GET", "/user/{id:int64}", serv.GetUser)
+	service.Handle("GET", "/users", serv.GetAllUsers)
+	service.Handle("GET", "/user/{id:int64}", serv.GetUser)
 
 	return iris
 }
