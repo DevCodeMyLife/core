@@ -16,9 +16,8 @@ func NewUserRepository(db *gorm.DB) *Repository {
 }
 
 func (r *Repository) GetAllUsers() []models.User {
-	var users []models.User
+	var u []models.User
+	r.db.Table("users").Find(&u)
 
-	r.db.Table("users").Find(&users)
-
-	return users
+	return u
 }

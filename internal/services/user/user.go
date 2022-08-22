@@ -4,7 +4,6 @@ import (
 	"core/internal/models"
 	"core/internal/repositories/auth"
 	"core/internal/repositories/user"
-	"net/http"
 )
 
 type Service struct {
@@ -19,9 +18,23 @@ func NewUserService(userRepository *user.Repository, authRepository *auth.Reposi
 	}
 }
 
-func (s *Service) GetAllUsers(token *http.Cookie) []models.User {
-	if s.authRepository.IsAuth(token) {
-		return s.userRepository.GetAllUsers()
+func (s *Service) GetAllUsers() []models.UserService {
+	var usersService []models.UserService
+
+	for _, v := range s.userRepository.GetAllUsers() {
+		var userService models.UserService
+
+		userService.ID = v.ID
+		userService.CreatedAt = v.CreatedAt
+		userService.Login = v.Login
+		userService.FirstName = v.FirstName
+		userService.LastName = v.LastName
+		userService.MiddleName = v.MiddleName
+		userService.MainImage = v.MainImage
+		userService.SmallImage = v.SmallImage
+
+		usersService = append(usersService, userService)
 	}
-	return nil
+
+	return usersService
 }

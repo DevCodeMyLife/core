@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"core/internal/models"
 	"gorm.io/gorm"
 	"net/http"
 )
@@ -16,13 +17,10 @@ func NewAuthRepository(db *gorm.DB) *Repository {
 }
 
 func (r *Repository) IsAuth(token *http.Cookie) bool {
-	var t = struct {
-		token string
-	}{}
+	var u []models.User
+	r.db.Table("users").Where("token = ?", token.Value).Find(&u)
 
-	r.db.Table("users").Where("token = ?", token.Value).Find(&t)
-
-	if t.token != "" {
+	if len(u) == 1 {
 		return true
 	}
 
