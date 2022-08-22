@@ -4,3 +4,5 @@
 # logs
 access.log
 
+# docker-compose
+docker-compose.yaml

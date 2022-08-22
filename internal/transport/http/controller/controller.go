@@ -2,6 +2,7 @@ package controller
 
 import (
 	"context"
+	"core/internal/services"
 	"core/internal/transport/http/router"
 	"github.com/ivahaev/go-logger"
 
@@ -10,12 +11,14 @@ import (
 )
 
 type Controller struct {
-	Iris *iris.Application
+	Iris     *iris.Application
+	Services *services.Services
 }
 
-func NewController(ctx context.Context) {
+func NewController(ctx context.Context, services *services.Services) {
 	server := &Controller{
-		Iris: iris.Default(),
+		Iris:     iris.Default(),
+		Services: services,
 	}
 
 	iris.RegisterOnInterrupt(func() {
@@ -35,7 +38,7 @@ func NewController(ctx context.Context) {
 
 	server.Iris.UseRouter(crs)
 
-	irisRouter := router.NewRouter(server.Iris)
+	irisRouter := router.NewRouter(server.Iris, services)
 
 	err := irisRouter.Listen(":8080", iris.WithoutInterruptHandler, iris.WithoutServerError(iris.ErrServerClosed))
 	if err != nil {
