@@ -1,22 +1,23 @@
 package handler
 
-import "github.com/kataras/iris/v12"
+import (
+	"github.com/kataras/iris/v12"
+)
 
-// GetAllUsers all users returned
-func (h *Handler) GetAllUsers(ctx iris.Context) {
-	users := h.Service.User.GetAllUsers()
-
+func (h *Handler) GetAllFeeds(ctx iris.Context) {
 	ctx.StatusCode(200)
+
+	feeds := h.Service.Feed.GetAllFeeds()
+
 	_ = ctx.JSON(iris.Map{
 		"status": iris.Map{
 			"message": nil,
 		},
-		"data": users,
+		"data": feeds,
 	})
 }
 
-// GetUserByID only one user returned
-func (h *Handler) GetUserByID(ctx iris.Context) {
+func (h *Handler) GetFeedByID(ctx iris.Context) {
 	id, err := ctx.Params().GetInt64("id")
 	if err != nil {
 		ctx.StatusCode(400)
@@ -29,12 +30,12 @@ func (h *Handler) GetUserByID(ctx iris.Context) {
 		return
 	}
 
-	user := h.Service.User.GetUserByID(id)
-	if user.ID == 0 {
+	feeds := h.Service.Feed.GetFeedByID(id)
+	if feeds.ID == 0 {
 		ctx.StatusCode(404)
 		_ = ctx.JSON(iris.Map{
 			"status": iris.Map{
-				"message": "User not exist",
+				"message": "Feed not exist",
 			},
 			"data": nil,
 		})
@@ -46,6 +47,6 @@ func (h *Handler) GetUserByID(ctx iris.Context) {
 		"status": iris.Map{
 			"message": nil,
 		},
-		"data": user,
+		"data": feeds,
 	})
 }

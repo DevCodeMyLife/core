@@ -36,9 +36,9 @@ func (s *Service) GetAllUsers() []models.UserService {
 	return usersService
 }
 
-func (s *Service) GetUser(id int64) models.UserService {
+func (s *Service) GetUserByID(id int64) models.UserService {
 	var userService models.UserService
-	v := s.userRepository.GetUser(id)
+	v := s.userRepository.GetUserByID(id)
 
 	userService.ID = v.ID
 	userService.CreatedAt = v.CreatedAt

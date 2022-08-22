@@ -3,6 +3,7 @@ module core
 go 1.19
 
 require (
+	github.com/AndreySHSH/ecback v0.1.0
 	github.com/iris-contrib/middleware/cors v0.0.0-20220815101939-754509eb4d57
 	github.com/ivahaev/go-logger v0.0.0-20170811130205-2337f7021abc
 	github.com/kataras/iris/v12 v12.2.0-beta4

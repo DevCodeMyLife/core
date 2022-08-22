@@ -17,14 +17,14 @@ func NewUserRepository(db *gorm.DB) *Repository {
 
 func (r *Repository) GetAllUsers() []models.User {
 	var u []models.User
-	r.db.Table("users").Find(&u)
+	r.db.Table("users").Where("deleted_at is null").Find(&u)
 
 	return u
 }
 
-func (r *Repository) GetUser(id int64) models.User {
+func (r *Repository) GetUserByID(id int64) models.User {
 	var u models.User
-	r.db.Table("users").Where("id = ?", id).Find(&u)
+	r.db.Table("users").Where("id = ? AND deleted_at is null", id).Find(&u)
 
 	return u
 }

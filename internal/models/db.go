@@ -16,3 +16,16 @@ type User struct {
 
 	Token string `json:"token"`
 }
+
+type Feed struct {
+	gorm.Model
+
+	UID uint `json:"uid"`
+
+	Title string `json:"title"`
+
+	MainImage  string `json:"main_image"`
+	SmallImage string `json:"small_image"`
+
+	Value string `json:"value"`
+}
